@@ -4,13 +4,13 @@
 site:
   title: "EarthOnline - 个人文档网站"
   description: "一个现代化的个人文档管理平台"
-  author: "您的姓名"
+  author: "Paxton"
   version: "1.0.0"
   language: "zh-CN"
 
 # 个人资料设置
 profile:
-  name: "您的姓名"
+  name: "Paxton"
   title: "全栈开发工程师"
   description: "热爱技术，喜欢分享，专注于Web开发和人工智能领域"
   avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150"

@@ -385,13 +385,13 @@
 .stat-card-number {
     font-size: 2rem;
     font-weight: bold;
-    color: var(--text-primary);
+    color: var(--light-text-primary);
     margin-bottom: 5px;
 }
 
 .stat-card-label {
     font-size: 0.9rem;
-    color: var(--text-secondary);
+    color: var(--light-text-secondary);
 }
 
 /* 时间线 */
@@ -407,7 +407,7 @@
     top: 0;
     bottom: 0;
     width: 2px;
-    background: var(--glass-border);
+    background: var(--light-glass-border);
 }
 
 .timeline-item {
@@ -425,21 +425,21 @@
     height: 16px;
     border-radius: 50%;
     background: var(--primary-color);
-    border: 3px solid var(--glass-bg);
+    border: 3px solid var(--light-glass-bg);
 }
 
 .timeline-content {
     padding: 20px;
     border-radius: 12px;
-    background: var(--glass-bg);
+    background: var(--light-glass-bg);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--light-glass-border);
 }
 
 .timeline-date {
     font-size: 0.9rem;
-    color: var(--text-secondary);
+    color: var(--light-text-secondary);
     margin-bottom: 10px;
 }
 
@@ -447,11 +447,11 @@
     font-size: 1.2rem;
     font-weight: 600;
     margin-bottom: 10px;
-    color: var(--text-primary);
+    color: var(--light-text-primary);
 }
 
 .timeline-description {
-    color: var(--text-secondary);
+    color: var(--light-text-secondary);
     line-height: 1.6;
 }
 
@@ -500,10 +500,10 @@
 .tooltip .tooltiptext {
     visibility: hidden;
     width: 120px;
-    background: var(--glass-bg);
+    background: var(--light-glass-bg);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    color: var(--text-primary);
+    color: var(--light-text-primary);
     text-align: center;
     border-radius: 6px;
     padding: 8px;
@@ -515,7 +515,7 @@
     opacity: 0;
     transition: opacity 0.3s;
     font-size: 0.8rem;
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--light-glass-border);
 }
 
 .tooltip:hover .tooltiptext {

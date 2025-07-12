@@ -6,39 +6,54 @@
 }
 
 :root {
-    --primary-color: #6366f1;
-    --secondary-color: #8b5cf6;
+    --primary-color: #84c7e2;
+    --secondary-color: #88ebd6;
     --accent-color: #06b6d4;
     --text-primary: #1f2937;
     --text-secondary: #6b7280;
-    --bg-primary: #f8fafc;
+    --bg-primary: #0a0a0a;
     --bg-secondary: #ffffff;
-    --glass-bg: rgba(255, 255, 255, 0.1);
-    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-bg: rgba(255, 255, 255, 0.2);
+    --glass-border: rgba(207, 202, 202, 0.2);
     --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     --shadow-heavy: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-primary: linear-gradient(135deg, #010101 0%, #59595e 100%);
     --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
     --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    
+    /* 白天模式背景 */
+    --light-bg: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    --light-text-primary: #1f2937;
+    --light-text-secondary: #6b7280;
+    --light-glass-bg: rgba(247, 241, 190, 0.2);
+    --light-glass-border: rgba(207, 202, 202, 0.2);
+    
+    /* 夜间模式背景 */
+    --dark-bg: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+    --dark-text-primary: #f3f4f6;
+    --dark-text-secondary: rgb(235, 238, 243);
+    --dark-glass-bg: rgba(73, 71, 71, 0.2);
+    --dark-glass-border: rgba(255, 255, 255, 0.1);
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: var(--gradient-primary);
+    background: var(--light-bg);
     background-attachment: fixed;
-    color: var(--text-primary);
+    color: var(--light-text-primary);
     line-height: 1.6;
     min-height: 100vh;
     overflow-x: hidden;
+    transition: all 0.3s ease;
 }
 
 /* 玻璃卡片效果 */
 .glass-card {
-    background: var(--glass-bg);
+    background: var(--light-glass-bg);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--light-glass-border);
     border-radius: 16px;
     box-shadow: var(--shadow-medium);
     transition: all 0.3s ease;
@@ -75,10 +90,10 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    background: var(--glass-bg);
+    background: var(--light-glass-bg);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--light-glass-border);
     z-index: 1000;
     transition: all 0.3s ease;
 }
@@ -117,7 +132,7 @@ body {
     align-items: center;
     gap: 8px;
     text-decoration: none;
-    color: var(--text-primary);
+    color: var(--light-text-primary);
     font-weight: 500;
     padding: 10px 15px;
     border-radius: 8px;
@@ -126,7 +141,7 @@ body {
 
 .nav-link:hover,
 .nav-link.active {
-    background: var(--glass-bg);
+    background: var(--light-glass-bg);
     color: var(--primary-color);
     transform: translateY(-2px);
 }
@@ -172,7 +187,7 @@ body {
     font-weight: bold;
     text-align: center;
     margin-bottom: 40px;
-    color: var(--text-primary);
+    color: var(--light-text-primary);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -196,10 +211,10 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     text-decoration: none;
-    background: var(--glass-bg);
+    background: var(--light-glass-bg);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--light-glass-border);
 }
 
 .btn-primary {
@@ -214,8 +229,8 @@ body {
 }
 
 .btn-secondary {
-    background: var(--glass-bg);
-    color: var(--text-primary);
+    background: var(--light-glass-bg);
+    color: var(--light-text-primary);
 }
 
 .btn-secondary:hover {
@@ -247,18 +262,18 @@ body {
     font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 10px;
-    color: var(--text-primary);
+    color: var(--light-text-primary);
 }
 
 .profile-title {
     font-size: 1.2rem;
-    color: var(--text-secondary);
+    color: var(--light-text-secondary);
     margin-bottom: 10px;
 }
 
 .profile-description {
     font-size: 1rem;
-    color: var(--text-secondary);
+    color: var(--light-text-secondary);
     max-width: 500px;
 }
 
@@ -281,7 +296,7 @@ body {
 
 .stat-label {
     font-size: 0.9rem;
-    color: var(--text-secondary);
+    color: var(--light-text-secondary);
 }
 
 /* 技能区域 */
@@ -309,7 +324,7 @@ body {
 .skill-card h3 {
     font-size: 1.5rem;
     margin-bottom: 20px;
-    color: var(--text-primary);
+    color: var(--light-text-primary);
 }
 
 .skill-bars {
@@ -326,7 +341,7 @@ body {
     display: block;
     margin-bottom: 5px;
     font-weight: 500;
-    color: var(--text-primary);
+    color: var(--light-text-primary);
 }
 
 .progress {
@@ -370,11 +385,11 @@ body {
 .portfolio-item h3 {
     font-size: 1.5rem;
     margin-bottom: 15px;
-    color: var(--text-primary);
+    color: var(--light-text-primary);
 }
 
 .portfolio-item p {
-    color: var(--text-secondary);
+    color: var(--light-text-secondary);
     margin-bottom: 20px;
 }
 
@@ -387,11 +402,11 @@ body {
 
 .tag {
     padding: 4px 12px;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--light-glass-bg);
+    border: 1px solid var(--light-glass-border);
     border-radius: 20px;
     font-size: 0.8rem;
-    color: var(--text-secondary);
+    color: var(--light-text-secondary);
 }
 
 /* 博客区域 */
@@ -409,7 +424,7 @@ body {
 .blog-post h3 {
     font-size: 1.3rem;
     margin-bottom: 15px;
-    color: var(--text-primary);
+    color: var(--light-text-primary);
 }
 
 .blog-post .post-meta {
@@ -417,11 +432,11 @@ body {
     gap: 15px;
     margin-bottom: 15px;
     font-size: 0.9rem;
-    color: var(--text-secondary);
+    color: var(--light-text-secondary);
 }
 
 .blog-post .post-excerpt {
-    color: var(--text-secondary);
+    color: var(--light-text-secondary);
     margin-bottom: 20px;
     line-height: 1.6;
 }
@@ -454,11 +469,11 @@ body {
 .life-post h3 {
     font-size: 1.3rem;
     margin-bottom: 15px;
-    color: var(--text-primary);
+    color: var(--light-text-primary);
 }
 
 .life-post p {
-    color: var(--text-secondary);
+    color: var(--light-text-secondary);
     line-height: 1.6;
 }
 
@@ -472,7 +487,7 @@ body {
 .plans-container h3 {
     font-size: 1.5rem;
     margin-bottom: 20px;
-    color: var(--text-primary);
+    color: var(--light-text-primary);
 }
 
 .plans-grid {
@@ -502,11 +517,11 @@ body {
 .plan-item h4 {
     font-size: 1.2rem;
     margin-bottom: 10px;
-    color: var(--text-primary);
+    color: var(--light-text-primary);
 }
 
 .plan-item p {
-    color: var(--text-secondary);
+    color: var(--light-text-secondary);
     margin-bottom: 10px;
 }
 
@@ -514,7 +529,7 @@ body {
     display: flex;
     gap: 15px;
     font-size: 0.9rem;
-    color: var(--text-secondary);
+    color: var(--light-text-secondary);
 }
 
 .plan-priority {
@@ -546,10 +561,10 @@ body {
 
 .plan-select {
     padding: 8px 12px;
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--light-glass-border);
     border-radius: 6px;
-    background: var(--glass-bg);
-    color: var(--text-primary);
+    background: var(--light-glass-bg);
+    color: var(--light-text-primary);
 }
 
 /* 记录区域 */
@@ -562,10 +577,10 @@ body {
 
 .tab-btn {
     padding: 12px 24px;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--light-glass-bg);
+    border: 1px solid var(--light-glass-border);
     border-radius: 8px;
-    color: var(--text-primary);
+    color: var(--light-text-primary);
     cursor: pointer;
     transition: all 0.3s ease;
 }
@@ -601,12 +616,12 @@ body {
 .video-item h4 {
     font-size: 1.2rem;
     margin-bottom: 10px;
-    color: var(--text-primary);
+    color: var(--light-text-primary);
 }
 
 .book-item p,
 .video-item p {
-    color: var(--text-secondary);
+    color: var(--light-text-secondary);
     margin-bottom: 15px;
 }
 
@@ -669,11 +684,11 @@ body {
 .social-card h4 {
     font-size: 1.3rem;
     margin-bottom: 10px;
-    color: var(--text-primary);
+    color: var(--light-text-primary);
 }
 
 .social-card p {
-    color: var(--text-secondary);
+    color: var(--light-text-secondary);
     margin-bottom: 20px;
 }
 
@@ -725,18 +740,18 @@ body {
 
 .modal-header h3 {
     margin: 0;
-    color: var(--text-primary);
+    color: var(--light-text-primary);
 }
 
 .close {
     font-size: 2rem;
     cursor: pointer;
-    color: var(--text-secondary);
+    color: var(--light-text-secondary);
     transition: color 0.3s ease;
 }
 
 .close:hover {
-    color: var(--text-primary);
+    color: var(--light-text-primary);
 }
 
 .modal-body {
@@ -752,7 +767,7 @@ body {
     display: block;
     margin-bottom: 8px;
     font-weight: 500;
-    color: var(--text-primary);
+    color: var(--light-text-primary);
 }
 
 .form-group input,
@@ -760,10 +775,10 @@ body {
 .form-group select {
     width: 100%;
     padding: 12px;
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--light-glass-border);
     border-radius: 8px;
-    background: var(--glass-bg);
-    color: var(--text-primary);
+    background: var(--light-glass-bg);
+    color: var(--light-text-primary);
     font-size: 1rem;
     transition: all 0.3s ease;
 }
@@ -785,13 +800,13 @@ body {
 
 /* 页脚 */
 .footer {
-    background: var(--glass-bg);
+    background: var(--light-glass-bg);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border-top: 1px solid var(--glass-border);
+    border-top: 1px solid var(--light-glass-border);
     padding: 20px 0;
     text-align: center;
-    color: var(--text-secondary);
+    color: var(--light-text-secondary);
 }
 
 /* 响应式设计 */

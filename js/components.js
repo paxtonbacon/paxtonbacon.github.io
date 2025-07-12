@@ -487,19 +487,125 @@ document.addEventListener('DOMContentLoaded', () => {
 // 添加深色主题样式
 const darkThemeStyles = `
     .dark-theme {
-        --text-primary: #f3f4f6;
-        --text-secondary: #d1d5db;
-        --glass-bg: rgba(0, 0, 0, 0.2);
-        --glass-border: rgba(255, 255, 255, 0.1);
+        background: var(--dark-bg) !important;
+        color: var(--dark-text-primary) !important;
+    }
+    
+    .dark-theme .navbar {
+        background: var(--dark-glass-bg) !important;
+        border-bottom-color: var(--dark-glass-border) !important;
+    }
+    
+    .dark-theme .nav-link {
+        color: var(--dark-text-primary) !important;
+    }
+    
+    .dark-theme .nav-link:hover,
+    .dark-theme .nav-link.active {
+        background: var(--dark-glass-bg) !important;
+    }
+    
+    .dark-theme .section-title {
+        color: var(--dark-text-primary) !important;
     }
     
     .dark-theme .glass-card {
-        background: rgba(0, 0, 0, 0.2);
-        border-color: rgba(255, 255, 255, 0.1);
+        background: var(--dark-glass-bg) !important;
+        border-color: var(--dark-glass-border) !important;
     }
     
     .dark-theme .glass-card::before {
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+    }
+    
+    .dark-theme .btn-secondary {
+        background: var(--dark-glass-bg) !important;
+        color: var(--dark-text-primary) !important;
+        border-color: var(--dark-glass-border) !important;
+    }
+    
+    .dark-theme .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    .dark-theme .profile-name,
+    .dark-theme .skill-card h3,
+    .dark-theme .portfolio-item h3,
+    .dark-theme .blog-post h3,
+    .dark-theme .life-post h3,
+    .dark-theme .plans-container h3,
+    .dark-theme .plan-item h4,
+    .dark-theme .book-item h4,
+    .dark-theme .video-item h4,
+    .dark-theme .social-card h4,
+    .dark-theme .modal-header h3,
+    .dark-theme .stat-card-number,
+    .dark-theme .timeline-title {
+        color: var(--dark-text-primary) !important;
+    }
+    
+    .dark-theme .profile-title,
+    .dark-theme .profile-description,
+    .dark-theme .stat-label,
+    .dark-theme .skill-bar span,
+    .dark-theme .portfolio-item p,
+    .dark-theme .tag,
+    .dark-theme .blog-post .post-meta,
+    .dark-theme .blog-post .post-excerpt,
+    .dark-theme .life-post p,
+    .dark-theme .plan-item p,
+    .dark-theme .plan-meta,
+    .dark-theme .book-item p,
+    .dark-theme .video-item p,
+    .dark-theme .social-card p,
+    .dark-theme .close,
+    .dark-theme .form-group label,
+    .dark-theme .form-group input,
+    .dark-theme .form-group textarea,
+    .dark-theme .form-group select,
+    .dark-theme .footer,
+    .dark-theme .timeline-date,
+    .dark-theme .timeline-description {
+        color: var(--dark-text-secondary) !important;
+    }
+    
+    .dark-theme .form-group input,
+    .dark-theme .form-group textarea,
+    .dark-theme .form-group select,
+    .dark-theme .plan-select,
+    .dark-theme .tab-btn {
+        background: var(--dark-glass-bg) !important;
+        border-color: var(--dark-glass-border) !important;
+    }
+    
+    .dark-theme .close:hover {
+        color: var(--dark-text-primary) !important;
+    }
+    
+    .dark-theme .form-group input:focus,
+    .dark-theme .form-group textarea:focus,
+    .dark-theme .form-group select:focus {
+        border-color: var(--primary-color) !important;
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+    }
+    
+    .dark-theme .timeline::before {
+        background: var(--dark-glass-border) !important;
+    }
+    
+    .dark-theme .timeline-item::before {
+        border-color: var(--dark-glass-bg) !important;
+    }
+    
+    .dark-theme .timeline-content {
+        background: var(--dark-glass-bg) !important;
+        border-color: var(--dark-glass-border) !important;
+    }
+    
+    .dark-theme .tooltip .tooltiptext {
+        background: var(--dark-glass-bg) !important;
+        color: var(--dark-text-primary) !important;
+        border-color: var(--dark-glass-border) !important;
     }
 `;
 

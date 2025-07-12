@@ -244,9 +244,8 @@ MIT License - 详见 [LICENSE](LICENSE) 文件
 
 ## 📞 联系
 
-- 项目地址：https://github.com/your-username/EarthOnline
-- 问题反馈：https://github.com/your-username/EarthOnline/issues
-- 邮箱：your.email@example.com
+- 项目地址：https://github.com/paxtonbacon/EarthOnline
+- 问题反馈：https://github.com/paxtonbacon/EarthOnline/issues
 
 ---
 

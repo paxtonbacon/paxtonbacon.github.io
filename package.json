@@ -1,0 +1,43 @@
+{
+  "name": "earthonline",
+  "version": "1.0.0",
+  "description": "一个现代化的个人文档管理平台，采用半透明浮窗式设计",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve . -p 8000",
+    "dev": "npx live-server --port=8000 --open=/index.html",
+    "build": "echo '静态网站，无需构建'",
+    "deploy": "echo '请将文件上传到您的Web服务器'"
+  },
+  "keywords": [
+    "personal-website",
+    "documentation",
+    "blog",
+    "portfolio",
+    "glassmorphism",
+    "responsive",
+    "modern"
+  ],
+  "author": "您的姓名",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/EarthOnline.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/EarthOnline/issues"
+  },
+  "homepage": "https://github.com/your-username/EarthOnline#readme",
+  "devDependencies": {
+    "serve": "^14.2.1",
+    "live-server": "^1.2.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+} 

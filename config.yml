@@ -1,0 +1,264 @@
+# EarthOnline 个人文档网站配置文件
+
+# 网站基本信息
+site:
+  title: "EarthOnline - 个人文档网站"
+  description: "一个现代化的个人文档管理平台"
+  author: "您的姓名"
+  version: "1.0.0"
+  language: "zh-CN"
+
+# 个人资料设置
+profile:
+  name: "您的姓名"
+  title: "全栈开发工程师"
+  description: "热爱技术，喜欢分享，专注于Web开发和人工智能领域"
+  avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150"
+  location: "中国"
+  email: "your.email@example.com"
+  website: "https://your-website.com"
+  
+  # 统计数据
+  stats:
+    projects: 100
+    articles: 50
+    experience: 5
+
+# 技能配置
+skills:
+  programming:
+    - name: "JavaScript"
+      level: 90
+      icon: "fab fa-js-square"
+    - name: "Python"
+      level: 85
+      icon: "fab fa-python"
+    - name: "React"
+      level: 80
+      icon: "fab fa-react"
+    - name: "Node.js"
+      level: 75
+      icon: "fab fa-node-js"
+    - name: "Vue.js"
+      level: 70
+      icon: "fab fa-vuejs"
+    
+  design:
+    - name: "UI/UX设计"
+      level: 75
+      icon: "fas fa-palette"
+    - name: "Photoshop"
+      level: 70
+      icon: "fas fa-image"
+    - name: "Figma"
+      level: 85
+      icon: "fab fa-figma"
+    
+  soft_skills:
+    - name: "团队协作"
+      level: 95
+      icon: "fas fa-users"
+    - name: "沟通能力"
+      level: 90
+      icon: "fas fa-comments"
+    - name: "问题解决"
+      level: 88
+      icon: "fas fa-lightbulb"
+
+# 作品集项目
+portfolio:
+  - title: "个人文档网站"
+    description: "使用现代Web技术构建的响应式个人文档管理平台"
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400"
+    tags: ["React", "Node.js", "MongoDB"]
+    link: "https://github.com/your-username/earthonline"
+    featured: true
+    
+  - title: "电商管理系统"
+    description: "基于Vue.js和Spring Boot的完整电商解决方案"
+    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400"
+    tags: ["Vue.js", "Spring Boot", "MySQL"]
+    link: "https://github.com/your-username/ecommerce"
+    featured: true
+    
+  - title: "机器学习项目"
+    description: "使用Python和TensorFlow开发的图像识别系统"
+    image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=400"
+    tags: ["Python", "TensorFlow", "OpenCV"]
+    link: "https://github.com/your-username/ml-project"
+    featured: false
+
+# 社交账号链接
+social:
+  github:
+    url: "https://github.com/your-username"
+    icon: "fab fa-github"
+    name: "GitHub"
+    description: "代码仓库和开源项目"
+    
+  linkedin:
+    url: "https://linkedin.com/in/your-profile"
+    icon: "fab fa-linkedin"
+    name: "LinkedIn"
+    description: "职业网络和经历"
+    
+  twitter:
+    url: "https://twitter.com/your-handle"
+    icon: "fab fa-twitter"
+    name: "Twitter"
+    description: "日常分享和想法"
+    
+  youtube:
+    url: "https://youtube.com/@your-channel"
+    icon: "fab fa-youtube"
+    name: "YouTube"
+    description: "视频内容和教程"
+    
+  bilibili:
+    url: "https://space.bilibili.com/your-id"
+    icon: "fas fa-play-circle"
+    name: "Bilibili"
+    description: "中文视频内容"
+
+# 主题和样式设置
+theme:
+  primary_color: "#6366f1"
+  secondary_color: "#8b5cf6"
+  accent_color: "#06b6d4"
+  background_gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+  
+  # 玻璃效果设置
+  glass:
+    background_opacity: 0.1
+    border_opacity: 0.2
+    blur_amount: 10
+    
+  # 动画设置
+  animations:
+    enabled: true
+    duration: 0.3
+    easing: "ease"
+
+# 功能开关
+features:
+  search: true
+  filters: true
+  export: true
+  import: true
+  dark_mode: true
+  timeline_view: true
+  statistics: true
+  notifications: true
+
+# 默认内容模板
+templates:
+  blog_post: |
+    # 文章标题
+    
+    在这里写入您的文章内容...
+    
+    ## 小标题
+    
+    段落内容...
+    
+    ```javascript
+    // 代码示例
+    console.log('Hello World!');
+    ```
+    
+    - 列表项1
+    - 列表项2
+    - 列表项3
+    
+  life_post: |
+    标题: 今天的美好时光
+    
+    内容: 在这里记录今天发生的有趣事情...
+    
+    图片URL: https://example.com/image.jpg
+    
+  plan: |
+    标题: 新计划
+    
+    描述: 计划的详细描述...
+    
+    日期: 2024-01-20
+    
+    优先级: medium
+    
+  book: |
+    标题: 书籍标题
+    
+    作者: 作者姓名
+    
+    状态: reading
+    
+    笔记: 阅读笔记...
+    
+  video: |
+    标题: 视频标题
+    
+    链接: https://www.youtube.com/watch?v=example
+    
+    平台: youtube
+    
+    笔记: 观看笔记...
+
+# 通知设置
+notifications:
+  position: "top-right"
+  duration: 3000
+  types:
+    success:
+      background: "linear-gradient(135deg, #10b981, #059669)"
+    error:
+      background: "linear-gradient(135deg, #ef4444, #dc2626)"
+    info:
+      background: "linear-gradient(135deg, #3b82f6, #2563eb)"
+
+# 数据存储设置
+storage:
+  type: "localStorage"
+  key: "earthOnlineData"
+  auto_save: true
+  backup_interval: 24 # 小时
+
+# 性能设置
+performance:
+  lazy_loading: true
+  image_optimization: true
+  cache_enabled: true
+  compression: true
+
+# 安全设置
+security:
+  xss_protection: true
+  content_security_policy: true
+  sanitize_input: true
+
+# 国际化设置
+i18n:
+  default_locale: "zh-CN"
+  supported_locales:
+    - "zh-CN"
+    - "en-US"
+  translations:
+    zh-CN:
+      home: "主页"
+      blog: "博客"
+      life: "生活记录"
+      plans: "计划"
+      records: "阅读记录"
+    en-US:
+      home: "Home"
+      blog: "Blog"
+      life: "Life"
+      plans: "Plans"
+      records: "Records"
+
+# 开发设置
+development:
+  debug_mode: false
+  log_level: "info"
+  hot_reload: true
+  source_maps: true 

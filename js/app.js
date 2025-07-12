@@ -18,6 +18,8 @@ class EarthOnlineApp {
         this.setupEventListeners();
         this.renderCurrentSection();
         this.setupMobileMenu();
+        this.loadAvatar(); // 加载保存的头像
+        this.loadSkillLevels(); // 加载技能等级
     }
 
     // 加载数据
@@ -287,6 +289,85 @@ async function fetchData() {
         document.getElementById('planType')?.addEventListener('change', (e) => {
             this.switchPlanType(e.target.value);
         });
+
+        // 头像上传功能
+        document.getElementById('avatarInput')?.addEventListener('change', (e) => {
+            this.handleAvatarUpload(e);
+        });
+
+        // 技能等级调整功能
+        this.setupSkillLevelAdjustment();
+    }
+
+    // 设置技能等级调整功能
+    setupSkillLevelAdjustment() {
+        document.querySelectorAll('.level-dot').forEach(dot => {
+            dot.addEventListener('click', (e) => {
+                this.adjustSkillLevel(e.target);
+            });
+        });
+    }
+
+    // 调整技能等级
+    adjustSkillLevel(clickedDot) {
+        const skillBar = clickedDot.closest('.skill-bar');
+        const dots = skillBar.querySelectorAll('.level-dot');
+        const levelText = skillBar.querySelector('.level-text');
+        const clickedLevel = parseInt(clickedDot.getAttribute('data-level'));
+        
+        // 更新所有点的状态
+        dots.forEach((dot, index) => {
+            const dotLevel = index + 1;
+            if (dotLevel <= clickedLevel) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+        
+        // 更新等级文本
+        levelText.textContent = `${clickedLevel}/10`;
+        
+        // 保存到localStorage
+        this.saveSkillLevels();
+        
+        // 显示通知
+        this.showNotification(`技能等级已调整为 ${clickedLevel}/10`, 'success');
+    }
+
+    // 保存技能等级
+    saveSkillLevels() {
+        const skillLevels = {};
+        document.querySelectorAll('.skill-bar').forEach(skillBar => {
+            const skillName = skillBar.querySelector('span').textContent;
+            const activeDots = skillBar.querySelectorAll('.level-dot.active').length;
+            skillLevels[skillName] = activeDots;
+        });
+        localStorage.setItem('skillLevels', JSON.stringify(skillLevels));
+    }
+
+    // 加载技能等级
+    loadSkillLevels() {
+        const savedLevels = localStorage.getItem('skillLevels');
+        if (savedLevels) {
+            const skillLevels = JSON.parse(savedLevels);
+            document.querySelectorAll('.skill-bar').forEach(skillBar => {
+                const skillName = skillBar.querySelector('span').textContent;
+                const level = skillLevels[skillName] || 0;
+                const dots = skillBar.querySelectorAll('.level-dot');
+                const levelText = skillBar.querySelector('.level-text');
+                
+                dots.forEach((dot, index) => {
+                    if (index < level) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+                
+                levelText.textContent = `${level}/10`;
+            });
+        }
     }
 
     // 设置移动端菜单
@@ -721,6 +802,47 @@ async function fetchData() {
             other: '其他'
         };
         return texts[platform] || platform;
+    }
+
+    // 处理头像上传
+    handleAvatarUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        // 检查文件类型
+        if (!file.type.startsWith('image/')) {
+            this.showNotification('请选择图片文件！', 'error');
+            return;
+        }
+
+        // 检查文件大小（限制为5MB）
+        if (file.size > 5 * 1024 * 1024) {
+            this.showNotification('图片文件大小不能超过5MB！', 'error');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const avatarImage = document.getElementById('avatarImage');
+            if (avatarImage) {
+                avatarImage.src = e.target.result;
+                // 保存到localStorage
+                localStorage.setItem('userAvatar', e.target.result);
+                this.showNotification('头像上传成功！', 'success');
+            }
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // 加载保存的头像
+    loadAvatar() {
+        const savedAvatar = localStorage.getItem('userAvatar');
+        if (savedAvatar) {
+            const avatarImage = document.getElementById('avatarImage');
+            if (avatarImage) {
+                avatarImage.src = savedAvatar;
+            }
+        }
     }
 }
 

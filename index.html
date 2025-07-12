@@ -44,11 +44,7 @@
                     </a>
                 </li>
             </ul>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
+           
         </div>
     </nav>
 
@@ -61,25 +57,31 @@
                 <div class="glass-card profile-card">
                     <div class="profile-header">
                         <div class="profile-avatar">
-                            <i class="fas fa-user-circle"></i>
+                            <img id="avatarImage" src="img/default-avatar.svg" alt="头像" class="avatar-img">
+                            <div class="avatar-upload">
+                                <label for="avatarInput" class="avatar-upload-btn">
+                                    <i class="fas fa-camera"></i>
+                                </label>
+                                <input type="file" id="avatarInput" accept="image/*" style="display: none;">
+                            </div>
                         </div>
                         <div class="profile-info">
-                            <h1 class="profile-name">您的姓名</h1>
-                            <p class="profile-title">职业头衔</p>
-                            <p class="profile-description">个人简介描述</p>
+                            <h1 class="profile-name">Paxton</h1>
+                            <p class="profile-title">计算机科学与技术 IT人</p>
+                            <p class="profile-description">“寻找工作与生活的平衡，爱世界，爱彼此❤”</p>
                         </div>
                     </div>
                     <div class="profile-stats">
                         <div class="stat-item">
-                            <span class="stat-number">100+</span>
+                            <span class="stat-number">3+</span>
                             <span class="stat-label">项目</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-number">50+</span>
+                            <span class="stat-number">0+</span>
                             <span class="stat-label">文章</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-number">5+</span>
+                            <span class="stat-number">2+</span>
                             <span class="stat-label">年经验</span>
                         </div>
                     </div>
@@ -87,30 +89,101 @@
 
                 <!-- 能力分析区域 -->
                 <div class="skills-section">
-                    <h2 class="section-title">能力分析</h2>
+                    <h2 class="section-title">能力分析 (balance)</h2>
                     <div class="skills-grid">
                         <div class="glass-card skill-card">
                             <div class="skill-icon">
                                 <i class="fas fa-code"></i>
                             </div>
-                            <h3>编程技能</h3>
+                            <h3>技术增进</h3>
                             <div class="skill-bars">
                                 <div class="skill-bar">
-                                    <span>JavaScript</span>
-                                    <div class="progress">
-                                        <div class="progress-bar" style="width: 90%"></div>
+                                    <span>算法修炼</span>
+                                    <div class="level-bar">
+                                        <div class="level-dots">
+                                            <span class="level-dot active" data-level="1"></span>
+                                            <span class="level-dot active" data-level="2"></span>
+                                            <span class="level-dot active" data-level="3"></span>
+                                            <span class="level-dot active" data-level="4"></span>
+                                            <span class="level-dot active" data-level="5"></span>
+                                            <span class="level-dot active" data-level="6"></span>
+                                            <span class="level-dot active" data-level="7"></span>
+                                            <span class="level-dot active" data-level="8"></span>
+                                            <span class="level-dot" data-level="9"></span>
+                                            <span class="level-dot" data-level="10"></span>
+                                        </div>
+                                        <span class="level-text">8/10</span>
+                                    </div>
+                                    <div class="skill-content">
+                                        <p>洛谷刷题(基本、数学、算法、dp、提升)->算法竞赛(省赛国赛)</p>
                                     </div>
                                 </div>
                                 <div class="skill-bar">
-                                    <span>Python</span>
-                                    <div class="progress">
-                                        <div class="progress-bar" style="width: 85%"></div>
+                                    <span>工程能力</span>
+                                    <div class="level-bar">
+                                        <div class="level-dots">
+                                            <span class="level-dot active" data-level="1"></span>
+                                            <span class="level-dot active" data-level="2"></span>
+                                            <span class="level-dot active" data-level="3"></span>
+                                            <span class="level-dot active" data-level="4"></span>
+                                            <span class="level-dot active" data-level="5"></span>
+                                            <span class="level-dot active" data-level="6"></span>
+                                            <span class="level-dot active" data-level="7"></span>
+                                            <span class="level-dot active" data-level="8"></span>
+                                            <span class="level-dot active" data-level="9"></span>
+                                            <span class="level-dot" data-level="10"></span>
+                                        </div>
+                                        <span class="level-text">9/10</span>
+                                    </div>
+                                    <div class="skill-content">
+                                        <p>进行Web开发、小程序开发、app开发--通过github, cursor
+                                            <br><b>基本使用->框架搭建->快速开发</b>
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="skill-bar">
-                                    <span>React</span>
-                                    <div class="progress">
-                                        <div class="progress-bar" style="width: 80%"></div>
+                                    <span>hacker养成计划</span>
+                                    <div class="level-bar">
+                                        <div class="level-dots">
+                                            <span class="level-dot active" data-level="1"></span>
+                                            <span class="level-dot active" data-level="2"></span>
+                                            <span class="level-dot active" data-level="3"></span>
+                                            <span class="level-dot active" data-level="4"></span>
+                                            <span class="level-dot active" data-level="5"></span>
+                                            <span class="level-dot active" data-level="6"></span>
+                                            <span class="level-dot active" data-level="7"></span>
+                                            <span class="level-dot" data-level="8"></span>
+                                            <span class="level-dot" data-level="9"></span>
+                                            <span class="level-dot" data-level="10"></span>
+                                        </div>
+                                        <span class="level-text">7/10</span>
+                                    </div>
+                                    <div class="skill-content">
+                                        <p>计算机体系结构+计算机网络+操作系统(基石)=>黑客技术</p>
+                                    </div>
+                                </div>
+                                <div class="skill-bar">
+                                    <span>编程语言学习</span>
+                                    <div class="level-bar">
+                                        <div class="level-dots">
+                                            <span class="level-dot active" data-level="1"></span>
+                                            <span class="level-dot active" data-level="2"></span>
+                                            <span class="level-dot active" data-level="3"></span>
+                                            <span class="level-dot active" data-level="4"></span>
+                                            <span class="level-dot active" data-level="5"></span>
+                                            <span class="level-dot active" data-level="6"></span>
+                                            <span class="level-dot active" data-level="7"></span>
+                                            <span class="level-dot" data-level="8"></span>
+                                            <span class="level-dot" data-level="9"></span>
+                                            <span class="level-dot" data-level="10"></span>
+                                        </div>
+                                        <span class="level-text">7/10</span>
+                                    </div>
+                                    <div class="skill-content">
+                                        <p>C, C++, Python, Java, SQL, NoSQL, HTML, CSS, 
+                                             MongoDB, MySQL, Git, GitHub
+                                            <br><b>学习 JavaScript, Node.js, React, Vue</b>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -120,24 +193,99 @@
                             <div class="skill-icon">
                                 <i class="fas fa-palette"></i>
                             </div>
-                            <h3>设计技能</h3>
+                            <h3>爱好兴趣</h3>
                             <div class="skill-bars">
                                 <div class="skill-bar">
-                                    <span>UI/UX设计</span>
-                                    <div class="progress">
-                                        <div class="progress-bar" style="width: 75%"></div>
+                                    <span>创造"我"的世界</span>
+                                    <div class="level-bar">
+                                        <div class="level-dots">
+                                            <span class="level-dot active" data-level="1"></span>
+                                            <span class="level-dot active" data-level="2"></span>
+                                            <span class="level-dot active" data-level="3"></span>
+                                            <span class="level-dot active" data-level="4"></span>
+                                            <span class="level-dot active" data-level="5"></span>
+                                            <span class="level-dot active" data-level="6"></span>
+                                            <span class="level-dot active" data-level="7"></span>
+                                            <span class="level-dot" data-level="8"></span>
+                                            <span class="level-dot" data-level="9"></span>
+                                            <span class="level-dot" data-level="10"></span>
+                                        </div>
+                                        <span class="level-text">7/10</span>
+                                    </div>
+                                    <div class="skill-content">
+                                        <p>创造一个网站、APP、AR、VR世界(满足自己的艺术创造欲)</p>
                                     </div>
                                 </div>
                                 <div class="skill-bar">
-                                    <span>Photoshop</span>
-                                    <div class="progress">
-                                        <div class="progress-bar" style="width: 70%"></div>
+                                    <span>读“本”好书</span>
+                                    <div class="level-bar">
+                                        <div class="level-dots">
+                                            <span class="level-dot active" data-level="1"></span>
+                                            <span class="level-dot active" data-level="2"></span>
+                                            <span class="level-dot active" data-level="3"></span>
+                                            <span class="level-dot active" data-level="4"></span>
+                                            <span class="level-dot active" data-level="5"></span>
+                                            <span class="level-dot active" data-level="6"></span>
+                                            <span class="level-dot active" data-level="7"></span>
+                                            <span class="level-dot active" data-level="8"></span>
+                                            <span class="level-dot" data-level="9"></span>
+                                            <span class="level-dot" data-level="10"></span>
+                                        </div>
+                                        <span class="level-text">8/10</span>
+                                    </div>
+                                    <div class="skill-content">
+                                        <p>开心的慢慢阅读，读到“开心”就很棒
+                                            <br><b>大概至少半个月一本 一次yes+1，1次not-1</b>
+                                            <br>想成为腹有知识的人，而不是明显的“假”
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="skill-bar">
-                                    <span>Figma</span>
-                                    <div class="progress">
-                                        <div class="progress-bar" style="width: 85%"></div>
+                                    <span>交朋友haha😊</span>
+                                    <div class="level-bar">
+                                        <div class="level-dots">
+                                            <span class="level-dot active" data-level="1"></span>
+                                            <span class="level-dot active" data-level="2"></span>
+                                            <span class="level-dot active" data-level="3"></span>
+                                            <span class="level-dot active" data-level="4"></span>
+                                            <span class="level-dot active" data-level="5"></span>
+                                            <span class="level-dot active" data-level="6"></span>
+                                            <span class="level-dot" data-level="7"></span>
+                                            <span class="level-dot" data-level="8"></span>
+                                            <span class="level-dot" data-level="9"></span>
+                                            <span class="level-dot" data-level="10"></span>
+                                        </div>
+                                        <span class="level-text">6/10</span>
+                                    </div>
+                                    <div class="skill-content">
+                                        <p>无论是线下的社交 or 线上的朋友 or hooker式的朋友
+                                            or party式的朋友 请快乐社交，慢慢调整自己的
+                                            缺点，发现别人的优点，开开心心过日子
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="skill-bar">
+                                    <span>数学能力</span>
+                                    <div class="level-bar">
+                                        <div class="level-dots">
+                                            <span class="level-dot active" data-level="1"></span>
+                                            <span class="level-dot active" data-level="2"></span>
+                                            <span class="level-dot active" data-level="3"></span>
+                                            <span class="level-dot active" data-level="4"></span>
+                                            <span class="level-dot active" data-level="5"></span>
+                                            <span class="level-dot active" data-level="6"></span>
+                                            <span class="level-dot" data-level="7"></span>
+                                            <span class="level-dot" data-level="8"></span>
+                                            <span class="level-dot" data-level="9"></span>
+                                            <span class="level-dot" data-level="10"></span>
+                                        </div>
+                                        <span class="level-text">6/10</span>
+                                    </div>
+                                    <div class="skill-content">
+                                        <p>建模思维+python建模能力(数据处理、数据分析、数据可视化)
+                                            + 高等数学，线性代数，抽象代数
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -147,24 +295,98 @@
                             <div class="skill-icon">
                                 <i class="fas fa-lightbulb"></i>
                             </div>
-                            <h3>软技能</h3>
+                            <h3>自我提升</h3>
                             <div class="skill-bars">
                                 <div class="skill-bar">
-                                    <span>团队协作</span>
-                                    <div class="progress">
-                                        <div class="progress-bar" style="width: 95%"></div>
+                                    <span>认识世界</span>
+                                    <div class="level-bar">
+                                        <div class="level-dots">
+                                            <span class="level-dot active" data-level="1"></span>
+                                            <span class="level-dot active" data-level="2"></span>
+                                            <span class="level-dot active" data-level="3"></span>
+                                            <span class="level-dot active" data-level="4"></span>
+                                            <span class="level-dot active" data-level="5"></span>
+                                            <span class="level-dot active" data-level="6"></span>
+                                            <span class="level-dot active" data-level="7"></span>
+                                            <span class="level-dot active" data-level="8"></span>
+                                            <span class="level-dot active" data-level="9"></span>
+                                            <span class="level-dot active" data-level="10"></span>
+                                        </div>
+                                        <span class="level-text">10/10</span>
+                                    </div>
+                                    <div class="skill-content">
+                                        <p>更好的了解我身处的世界，了解历史，了解屡见不鲜的事件
+                                            了解到“人”(好、坏、正常)，了解经济政治文化
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="skill-bar">
-                                    <span>沟通能力</span>
-                                    <div class="progress">
-                                        <div class="progress-bar" style="width: 90%"></div>
+                                    <span>健身与形象管理</span>
+                                    <div class="level-bar">
+                                        <div class="level-dots">
+                                            <span class="level-dot active" data-level="1"></span>
+                                            <span class="level-dot active" data-level="2"></span>
+                                            <span class="level-dot active" data-level="3"></span>
+                                            <span class="level-dot active" data-level="4"></span>
+                                            <span class="level-dot active" data-level="5"></span>
+                                            <span class="level-dot active" data-level="6"></span>
+                                            <span class="level-dot active" data-level="7"></span>
+                                            <span class="level-dot active" data-level="8"></span>
+                                            <span class="level-dot active" data-level="9"></span>
+                                            <span class="level-dot" data-level="10"></span>
+                                        </div>
+                                        <span class="level-text">9/10</span>
+                                    </div>
+                                    <div class="skill-content">
+                                        <p>跑步(健康)+健身(减重)+形象管理(发型、穿搭、皮肤、身材)
+                                            <br><b>体重162->140</b>
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="skill-bar">
-                                    <span>问题解决</span>
-                                    <div class="progress">
-                                        <div class="progress-bar" style="width: 88%"></div>
+                                    <span>英语学习</span>
+                                    <div class="level-bar">
+                                        <div class="level-dots">
+                                            <span class="level-dot active" data-level="1"></span>
+                                            <span class="level-dot active" data-level="2"></span>
+                                            <span class="level-dot active" data-level="3"></span>
+                                            <span class="level-dot active" data-level="4"></span>
+                                            <span class="level-dot active" data-level="5"></span>
+                                            <span class="level-dot active" data-level="6"></span>
+                                            <span class="level-dot active" data-level="7"></span>
+                                            <span class="level-dot active" data-level="8"></span>
+                                            <span class="level-dot" data-level="9"></span>
+                                            <span class="level-dot" data-level="10"></span>
+                                        </div>
+                                        <span class="level-text">8/10</span>
+                                    </div>
+                                    <div class="skill-content">
+                                        <p>一门窗口性的语言，像“咸蛋”一样，打开世界的大门
+                                            <br><b>贵在“日日坚持”</b>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="skill-bar">
+                                    <span>守住底线</span>
+                                    <div class="level-bar">
+                                        <div class="level-dots">
+                                            <span class="level-dot active" data-level="1"></span>
+                                            <span class="level-dot active" data-level="2"></span>
+                                            <span class="level-dot active" data-level="3"></span>
+                                            <span class="level-dot active" data-level="4"></span>
+                                            <span class="level-dot active" data-level="5"></span>
+                                            <span class="level-dot active" data-level="6"></span>
+                                            <span class="level-dot active" data-level="7"></span>
+                                            <span class="level-dot active" data-level="8"></span>
+                                            <span class="level-dot" data-level="9"></span>
+                                            <span class="level-dot" data-level="10"></span>
+                                        </div>
+                                        <span class="level-text">8/10</span>
+                                    </div>
+                                    <div class="skill-content">
+                                        <p>慢慢的改正自己的坏习惯，3->7->10(平均)目标
+                                            <br><b>请“适度”</b> 每达到一次目标加1，失败减1
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -172,19 +394,20 @@
                     </div>
                 </div>
 
-                <!-- 个人版面区域 -->
+                <!-- 成就版面区域 -->
                 <div class="portfolio-section">
-                    <h2 class="section-title">个人版面</h2>
+                    <h2 class="section-title">成就版面</h2>
                     <div class="portfolio-grid">
                         <div class="glass-card portfolio-item">
                             <div class="portfolio-image">
                                 <i class="fas fa-project-diagram"></i>
                             </div>
-                            <h3>项目一</h3>
-                            <p>项目描述和详细介绍</p>
+                            <h3>成就一</h3>
+                            <p>开开心心长大啦</p>
                             <div class="portfolio-tags">
-                                <span class="tag">React</span>
-                                <span class="tag">Node.js</span>
+                                <span class="tag">认识自己</span>
+                                <span class="tag">认识世界</span>
+                                <span class="tag">发展自我</span>
                             </div>
                         </div>
 
@@ -192,11 +415,12 @@
                             <div class="portfolio-image">
                                 <i class="fas fa-mobile-alt"></i>
                             </div>
-                            <h3>项目二</h3>
-                            <p>移动应用开发项目</p>
+                            <h3>成就二</h3>
+                            <p>学到很多知识，绩点还不错，
+                                拿了省赛奖项+校赛若干</p>
                             <div class="portfolio-tags">
-                                <span class="tag">Flutter</span>
-                                <span class="tag">Dart</span>
+                                <span class="tag">知识</span>
+                                <span class="tag">学习</span>
                             </div>
                         </div>
 
@@ -204,11 +428,12 @@
                             <div class="portfolio-image">
                                 <i class="fas fa-chart-line"></i>
                             </div>
-                            <h3>项目三</h3>
-                            <p>数据分析和可视化项目</p>
+                            <h3>成就三</h3>
+                            <p>交了一些朋友</p>
                             <div class="portfolio-tags">
-                                <span class="tag">Python</span>
-                                <span class="tag">D3.js</span>
+                                <span class="tag">志同道合者</span>
+                                <span class="tag">脑电波</span>
+                                <span class="tag">磨合理解</span>
                             </div>
                         </div>
                     </div>
@@ -542,7 +767,7 @@
     <!-- 页脚 -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 EarthOnline. 个人文档网站</p>
+            <p>&copy; 2025 EarthOnline. paxton个人网站</p>
         </div>
     </footer>
 

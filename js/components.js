@@ -42,12 +42,12 @@ class SearchComponent {
 
         grid.innerHTML = filteredPosts.map(post => `
             <div class="glass-card blog-post" onclick="app.showBlogPost(${post.id})">
+                <button class="delete-btn" onclick="event.stopPropagation(); app.deleteBlogPost(${post.id})" title="删除文章"><i class="fas fa-trash"></i></button>
                 <h3>${post.title}</h3>
                 <div class="post-meta">
                     <span><i class="fas fa-user"></i> ${post.author}</span>
                     <span><i class="fas fa-calendar"></i> ${post.date}</span>
                 </div>
-                <div class="post-excerpt">${post.content.substring(0, 150)}...</div>
                 <div class="post-tags">
                     ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
                 </div>
@@ -66,35 +66,158 @@ class FilterComponent {
         // 为博客区域添加过滤器
         const blogSection = document.getElementById('blog');
         if (blogSection) {
-            const filterContainer = document.createElement('div');
-            filterContainer.className = 'filter-container';
-            filterContainer.innerHTML = `
-                <button class="filter-btn active" data-filter="all">全部</button>
-                <button class="filter-btn" data-filter="技术">技术</button>
-                <button class="filter-btn" data-filter="生活">生活</button>
-                <button class="filter-btn" data-filter="学习">学习</button>
+            // 创建第二行筛选器容器
+            const filterRow = document.createElement('div');
+            filterRow.className = 'filter-row';
+            filterRow.innerHTML = `
+                <div class="filter-module">
+                    <div class="filter-select-container">
+                        <select class="filter-select" data-module="技术">
+                            <option value="">技术</option>
+                            <option value="算法">算法</option>
+                            <option value="工程">工程</option>
+                            <option value="hacker">hacker</option>
+                            <option value="编程">编程</option>
+                            <option value="数学">数学</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-module">
+                    <div class="filter-select-container">
+                        <select class="filter-select" data-module="爱好">
+                            <option value="">爱好</option>
+                            <option value="创造世界">创造世界</option>
+                            <option value="读书">读书</option>
+                            <option value="交友">交友</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-module">
+                    <div class="filter-select-container">
+                        <select class="filter-select" data-module="认识">
+                            <option value="">认识</option>
+                            <option value="世界">世界</option>
+                            <option value="健身">健身</option>
+                            <option value="英语">英语</option>
+                            <option value="底线">底线</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-module">
+                    <div class="filter-select-container">
+                        <select class="filter-select" data-module="散聊">
+                            <option value="">散聊</option>
+                            <option value="散聊">散聊</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-module">
+                    <button class="filter-btn filter-btn-all active" data-filter="all">全部</button>
+                </div>
+                <div class="filter-module timeline-btn-module">
+                    <button class="filter-btn timeline-btn" id="timelineViewBtn"><i class="fas fa-stream"></i> 时间线显示</button>
+                </div>
             `;
             
-            const sectionHeader = blogSection.querySelector('.section-header');
-            if (sectionHeader) {
-                sectionHeader.appendChild(filterContainer);
+            // 将筛选器插入到博客网格之前
+            const blogGrid = blogSection.querySelector('#blogGrid');
+            if (blogGrid) {
+                blogGrid.parentNode.insertBefore(filterRow, blogGrid);
             }
 
-            // 过滤器功能
-            filterContainer.addEventListener('click', (e) => {
-                if (e.target.classList.contains('filter-btn')) {
-                    // 更新按钮状态
-                    filterContainer.querySelectorAll('.filter-btn').forEach(btn => {
+            // 下拉框筛选功能
+            filterRow.addEventListener('change', (e) => {
+                if (e.target.classList.contains('filter-select')) {
+                    const selectedValue = e.target.value;
+                    const currentModule = e.target.getAttribute('data-module');
+                    
+                    // 如果选择了某个值
+                    if (selectedValue) {
+                        // 清除"全部"按钮的选中状态
+                        filterRow.querySelector('.filter-btn-all').classList.remove('active');
+                        
+                        // 清除其他模块的选择
+                        filterRow.querySelectorAll('.filter-select').forEach(select => {
+                            if (select !== e.target) {
+                                select.value = '';
+                            }
+                        });
+                        
+                        // 过滤文章
+                        this.filterBlogPosts(selectedValue);
+                        this.showBlogGrid();
+                    } else {
+                        // 如果清空了选择，显示全部
+                        filterRow.querySelector('.filter-btn-all').classList.add('active');
+                        this.filterBlogPosts('all');
+                        this.showBlogGrid();
+                    }
+                }
+            });
+
+            // "全部"按钮功能
+            filterRow.addEventListener('click', (e) => {
+                if (e.target.classList.contains('filter-btn-all')) {
+                    // 清除所有下拉框的选择
+                    filterRow.querySelectorAll('.filter-select').forEach(select => {
+                        select.value = '';
+                    });
+                    
+                    // 清除所有选中状态
+                    filterRow.querySelectorAll('.filter-btn').forEach(btn => {
                         btn.classList.remove('active');
                     });
                     e.target.classList.add('active');
-
-                    // 过滤文章
-                    const filter = e.target.getAttribute('data-filter');
-                    this.filterBlogPosts(filter);
+                    
+                    // 显示所有文章
+                    this.filterBlogPosts('all');
+                    this.showBlogGrid();
                 }
             });
+
+            // 时间线显示按钮功能
+            const timelineBtn = filterRow.querySelector('#timelineViewBtn');
+            if (timelineBtn) {
+                timelineBtn.addEventListener('click', () => {
+                    this.renderTimelineView();
+                });
+            }
         }
+    }
+
+    showBlogGrid() {
+        // 显示博客网格，隐藏时间线
+        const grid = document.getElementById('blogGrid');
+        let timeline = document.getElementById('blogTimeline');
+        if (grid) grid.style.display = '';
+        if (timeline) timeline.style.display = 'none';
+    }
+
+    renderTimelineView() {
+        const blogSection = document.getElementById('blog');
+        let timeline = document.getElementById('blogTimeline');
+        const grid = document.getElementById('blogGrid');
+        if (grid) grid.style.display = 'none';
+        if (!timeline) {
+            timeline = document.createElement('div');
+            timeline.id = 'blogTimeline';
+            timeline.className = 'blog-timeline';
+            blogSection.appendChild(timeline);
+        }
+        timeline.style.display = '';
+        // 获取所有文章，按时间倒序
+        let posts = app.data.blogPosts.slice();
+        posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+        // 渲染时间线
+        timeline.innerHTML = posts.map(post => `
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">${post.date}</div>
+                    <div class="timeline-title"><a href="javascript:void(0)" onclick="app.showBlogPost(${post.id})">${post.title}</a></div>
+                </div>
+            </div>
+        `).join('');
     }
 
     filterBlogPosts(filter) {
@@ -112,12 +235,12 @@ class FilterComponent {
 
         grid.innerHTML = filteredPosts.map(post => `
             <div class="glass-card blog-post" onclick="app.showBlogPost(${post.id})">
+                <button class="delete-btn" onclick="event.stopPropagation(); app.deleteBlogPost(${post.id})" title="删除文章"><i class="fas fa-trash"></i></button>
                 <h3>${post.title}</h3>
                 <div class="post-meta">
                     <span><i class="fas fa-user"></i> ${post.author}</span>
                     <span><i class="fas fa-calendar"></i> ${post.date}</span>
                 </div>
-                <div class="post-excerpt">${post.content.substring(0, 150)}...</div>
                 <div class="post-tags">
                     ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
                 </div>

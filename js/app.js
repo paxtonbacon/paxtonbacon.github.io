@@ -18,7 +18,6 @@ class EarthOnlineApp {
         this.setupEventListeners();
         this.renderCurrentSection();
         this.setupMobileMenu();
-        this.loadAvatar(); // 加载保存的头像
         this.loadSkillLevels(); // 加载技能等级
     }
 
@@ -60,7 +59,7 @@ class EarthOnlineApp {
 - **数据库**: MongoDB, MySQL, PostgreSQL
 
 希望这个博客能够帮助到更多的人！`,
-                tags: ['介绍', '技术'],
+                tags: ['散聊', '编程'],
                 date: '2024-01-15',
                 author: '博主'
             },
@@ -99,8 +98,66 @@ async function fetchData() {
     }
 }
 \`\`\``,
-                tags: ['JavaScript', '异步编程'],
+                tags: ['编程', '工程'],
                 date: '2024-01-10',
+                author: '博主'
+            },
+            {
+                id: 3,
+                title: '算法学习笔记',
+                content: `# 算法学习笔记
+
+今天学习了几个重要的算法概念。
+
+## 排序算法
+
+冒泡排序、快速排序、归并排序...
+
+## 数据结构
+
+数组、链表、栈、队列、树、图...
+
+算法是编程的基础，需要不断练习。`,
+                tags: ['算法', '数学'],
+                date: '2024-01-08',
+                author: '博主'
+            },
+            {
+                id: 4,
+                title: '网络安全入门',
+                content: `# 网络安全入门
+
+开始学习网络安全知识。
+
+## 基础概念
+
+- 加密解密
+- 身份认证
+- 访问控制
+- 漏洞利用
+
+网络安全是一个广阔的领域。`,
+                tags: ['hacker', '世界'],
+                date: '2024-01-05',
+                author: '博主'
+            },
+            {
+                id: 5,
+                title: '健身计划分享',
+                content: `# 健身计划分享
+
+制定了一个新的健身计划。
+
+## 训练内容
+
+- 力量训练
+- 有氧运动
+- 柔韧性训练
+- 营养搭配
+
+坚持就是胜利！`,
+                tags: ['健身', '底线'],
+                date: '2024-01-03',
                 author: '博主'
             }
         ];
@@ -290,11 +347,6 @@ async function fetchData() {
             this.switchPlanType(e.target.value);
         });
 
-        // 头像上传功能
-        document.getElementById('avatarInput')?.addEventListener('change', (e) => {
-            this.handleAvatarUpload(e);
-        });
-
         // 技能等级调整功能
         this.setupSkillLevelAdjustment();
     }
@@ -435,17 +487,26 @@ async function fetchData() {
 
         grid.innerHTML = this.data.blogPosts.map(post => `
             <div class="glass-card blog-post" onclick="app.showBlogPost(${post.id})">
+                <button class="delete-btn" onclick="event.stopPropagation(); app.deleteBlogPost(${post.id})" title="删除文章"><i class="fas fa-trash"></i></button>
                 <h3>${post.title}</h3>
                 <div class="post-meta">
                     <span><i class="fas fa-user"></i> ${post.author}</span>
                     <span><i class="fas fa-calendar"></i> ${post.date}</span>
                 </div>
-                <div class="post-excerpt">${post.content.substring(0, 150)}...</div>
                 <div class="post-tags">
                     ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
                 </div>
             </div>
         `).join('');
+    }
+
+    // 删除博客文章
+    deleteBlogPost(id) {
+        if (!confirm('确定要删除这篇文章吗？')) return;
+        this.data.blogPosts = this.data.blogPosts.filter(post => post.id !== id);
+        this.saveData();
+        this.renderBlogPosts();
+        this.showNotification('文章已删除', 'success');
     }
 
     // 渲染生活记录
@@ -802,47 +863,6 @@ async function fetchData() {
             other: '其他'
         };
         return texts[platform] || platform;
-    }
-
-    // 处理头像上传
-    handleAvatarUpload(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-
-        // 检查文件类型
-        if (!file.type.startsWith('image/')) {
-            this.showNotification('请选择图片文件！', 'error');
-            return;
-        }
-
-        // 检查文件大小（限制为5MB）
-        if (file.size > 5 * 1024 * 1024) {
-            this.showNotification('图片文件大小不能超过5MB！', 'error');
-            return;
-        }
-
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const avatarImage = document.getElementById('avatarImage');
-            if (avatarImage) {
-                avatarImage.src = e.target.result;
-                // 保存到localStorage
-                localStorage.setItem('userAvatar', e.target.result);
-                this.showNotification('头像上传成功！', 'success');
-            }
-        };
-        reader.readAsDataURL(file);
-    }
-
-    // 加载保存的头像
-    loadAvatar() {
-        const savedAvatar = localStorage.getItem('userAvatar');
-        if (savedAvatar) {
-            const avatarImage = document.getElementById('avatarImage');
-            if (avatarImage) {
-                avatarImage.src = savedAvatar;
-            }
-        }
     }
 }
 

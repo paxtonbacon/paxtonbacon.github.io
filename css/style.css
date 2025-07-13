@@ -275,35 +275,6 @@ body {
     box-shadow: var(--shadow-heavy);
 }
 
-.avatar-upload {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-}
-
-.avatar-upload-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 35px;
-    height: 35px;
-    background: var(--primary-color);
-    border-radius: 50%;
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow-light);
-}
-
-.avatar-upload-btn:hover {
-    background: var(--accent-color);
-    transform: scale(1.1);
-}
-
-.avatar-upload-btn i {
-    font-size: 14px;
-}
-
 .profile-name {
     font-size: 2.5rem;
     font-weight: bold;
@@ -510,6 +481,32 @@ body {
 .blog-post {
     padding: 30px;
     cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.blog-post:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.delete-btn {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: transparent;
+    border: none;
+    color: #e57373;
+    font-size: 1.1em;
+    cursor: pointer;
+    z-index: 2;
+    padding: 4px;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+.delete-btn:hover {
+    background: rgba(229, 115, 115, 0.1);
+    color: #c62828;
 }
 
 .blog-post h3 {
@@ -521,15 +518,9 @@ body {
 .blog-post .post-meta {
     display: flex;
     gap: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     font-size: 0.9rem;
     color: var(--light-text-secondary);
-}
-
-.blog-post .post-excerpt {
-    color: var(--light-text-secondary);
-    margin-bottom: 20px;
-    line-height: 1.6;
 }
 
 .blog-post .post-tags {
@@ -1003,4 +994,241 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.5);
+} 
+
+/* 博客筛选器样式 */
+.filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    align-items: center;
+}
+
+.filter-module {
+    display: flex;
+    align-items: center;
+    min-width: 120px;
+}
+
+.filter-select-container {
+    position: relative;
+    width: 100%;
+}
+
+.filter-select {
+    width: 100%;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    color: var(--light-text-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    backdrop-filter: blur(5px);
+    /* 使用默认的下拉箭头 */
+    padding-right: 12px;
+}
+
+.filter-select:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+}
+
+.filter-select:focus {
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-color: var(--gradient-primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* 简化选项样式 */
+.filter-select option {
+    background: #ffffff;
+    color: #333333;
+    padding: 8px;
+}
+
+.filter-btn-all {
+    padding: 8px 16px;
+    background: rgba(34, 197, 94, 0.2);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-radius: 8px;
+    color: #22c55e;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    font-weight: 500;
+    backdrop-filter: blur(5px);
+}
+
+.filter-btn-all:hover {
+    background: rgba(34, 197, 94, 0.3);
+    border-color: rgba(34, 197, 94, 0.4);
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.2);
+}
+
+.filter-btn-all.active {
+    background: #22c55e;
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .filter-row {
+        flex-direction: column;
+        gap: 12px;
+        padding: 12px 15px;
+    }
+    
+    .filter-module {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .filter-select {
+        font-size: 1rem;
+        padding: 10px 12px;
+    }
+    
+    .filter-btn-all {
+        width: 100%;
+        padding: 10px 16px;
+        font-size: 1rem;
+    }
+}
+
+/* 平板端适配 */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .filter-row {
+        gap: 12px;
+        padding: 12px 15px;
+    }
+    
+    .filter-module {
+        min-width: 100px;
+    }
+    
+    .filter-select {
+        font-size: 0.85rem;
+        padding: 6px 10px;
+    }
+} 
+
+/* 博客时间线视图样式 */
+.blog-timeline {
+    position: relative;
+    margin: 30px 0 0 0;
+    padding: 30px 0;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.timeline-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 40px;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.2);
+    z-index: 2;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, #e5e7eb 0%, #4facfe 50%, #e5e7eb 100%);
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.timeline-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    gap: 20px;
+}
+
+.timeline-date {
+    flex: 0 0 120px;
+    text-align: right;
+    font-size: 0.9rem;
+    color: #6b7280;
+    font-weight: 500;
+    padding-right: 20px;
+}
+
+.timeline-title {
+    flex: 1;
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #1f2937;
+    padding-left: 20px;
+}
+
+.timeline-title a {
+    color: #2563eb;
+    text-decoration: none;
+    transition: color 0.2s;
+    display: block;
+    padding: 8px 0;
+}
+
+.timeline-title a:hover {
+    color: #f59e42;
+    text-decoration: underline;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .timeline-content {
+        max-width: 100%;
+        gap: 10px;
+    }
+    
+    .timeline-date {
+        flex: 0 0 80px;
+        font-size: 0.8rem;
+        padding-right: 10px;
+    }
+    
+    .timeline-title {
+        font-size: 0.9rem;
+        padding-left: 10px;
+    }
+    
+    .timeline-dot {
+        width: 10px;
+        height: 10px;
+    }
 } 

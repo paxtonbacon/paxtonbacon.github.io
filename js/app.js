@@ -23,11 +23,19 @@ class EarthOnlineApp {
 
     // 加载数据
     loadData() {
-        // 从localStorage加载数据
-        const savedData = localStorage.getItem('earthOnlineData');
-        if (savedData) {
-            this.data = { ...this.data, ...JSON.parse(savedData) };
-        } else {
+        try {
+            // 从localStorage加载数据
+            const savedData = localStorage.getItem('earthOnlineData');
+            if (savedData) {
+                const parsedData = JSON.parse(savedData);
+                this.data = { ...this.data, ...parsedData };
+            } else {
+                // 初始化示例数据
+                this.initializeSampleData();
+            }
+        } catch (error) {
+            console.error('加载数据失败:', error);
+            this.showNotification('加载数据失败，将使用默认数据。', 'warning');
             // 初始化示例数据
             this.initializeSampleData();
         }
@@ -35,7 +43,101 @@ class EarthOnlineApp {
 
     // 保存数据
     saveData() {
-        localStorage.setItem('earthOnlineData', JSON.stringify(this.data));
+        try {
+            const dataString = JSON.stringify(this.data);
+            
+            // 检查数据大小
+            const dataSize = new Blob([dataString]).size;
+            const maxSize = 4.5 * 1024 * 1024; // 4.5MB 限制
+            
+            if (dataSize > maxSize) {
+                // 数据过大，尝试清理旧数据
+                this.cleanupOldData();
+                
+                // 再次检查大小
+                const newDataString = JSON.stringify(this.data);
+                const newDataSize = new Blob([newDataString]).size;
+                
+                if (newDataSize > maxSize) {
+                    // 仍然过大，显示警告
+                    this.showNotification('数据量过大，部分数据可能无法保存。建议删除一些旧内容。', 'warning');
+                    return;
+                }
+            }
+            
+            localStorage.setItem('earthOnlineData', dataString);
+        } catch (error) {
+            console.error('保存数据失败:', error);
+            this.showNotification('保存数据失败，可能是存储空间不足。', 'error');
+        }
+    }
+    
+    // 获取数据大小
+    getDataSize() {
+        const dataString = JSON.stringify(this.data);
+        const sizeInBytes = new Blob([dataString]).size;
+        const sizeInKB = (sizeInBytes / 1024).toFixed(1);
+        return sizeInKB > 1024 ? (sizeInKB / 1024).toFixed(1) + ' MB' : sizeInKB + ' KB';
+    }
+    
+    // 更新数据统计
+    updateDataStats() {
+        document.getElementById('blogCount').textContent = this.data.blogPosts.length;
+        document.getElementById('lifeCount').textContent = this.data.lifePosts.length;
+        document.getElementById('planCount').textContent = this.data.dailyPlans.length + this.data.stagePlans.length;
+        document.getElementById('bookCount').textContent = this.data.books.length;
+        document.getElementById('videoCount').textContent = this.data.videos.length;
+        document.getElementById('dataSize').textContent = this.getDataSize();
+    }
+    
+    // 显示数据管理模态框
+    showDataManager() {
+        this.updateDataStats();
+        this.showModal('dataManagerModal');
+    }
+    
+    // 清理旧数据
+    cleanupOldData() {
+        // 保留最新的50篇博客文章
+        if (this.data.blogPosts.length > 50) {
+            this.data.blogPosts = this.data.blogPosts
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+                .slice(0, 50);
+        }
+        
+        // 保留最新的30条生活记录
+        if (this.data.lifePosts.length > 30) {
+            this.data.lifePosts = this.data.lifePosts
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+                .slice(0, 30);
+        }
+        
+        // 保留最新的100条计划
+        if (this.data.dailyPlans.length > 100) {
+            this.data.dailyPlans = this.data.dailyPlans
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+                .slice(0, 100);
+        }
+        
+        if (this.data.stagePlans.length > 100) {
+            this.data.stagePlans = this.data.stagePlans
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+                .slice(0, 100);
+        }
+        
+        // 保留最新的50本书
+        if (this.data.books.length > 50) {
+            this.data.books = this.data.books
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+                .slice(0, 50);
+        }
+        
+        // 保留最新的50个视频
+        if (this.data.videos.length > 50) {
+            this.data.videos = this.data.videos
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+                .slice(0, 50);
+        }
     }
 
     // 初始化示例数据
@@ -347,8 +449,38 @@ async function fetchData() {
             this.switchPlanType(e.target.value);
         });
 
+        // 图片预览功能
+        document.getElementById('lifeImages')?.addEventListener('change', (e) => {
+            this.handleImagePreview(e);
+        });
+
         // 技能等级调整功能
         this.setupSkillLevelAdjustment();
+        
+        // 数据管理相关
+        document.getElementById('dataManagerBtn')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.showDataManager();
+        });
+        
+        document.getElementById('cleanupDataBtn')?.addEventListener('click', () => {
+            this.cleanupOldData();
+            this.saveData();
+            this.updateDataStats();
+            this.showNotification('旧数据清理完成！', 'success');
+        });
+        
+        document.getElementById('clearAllDataBtn')?.addEventListener('click', () => {
+            this.clearAllData();
+        });
+        
+        document.getElementById('exportDataBtn')?.addEventListener('click', () => {
+            this.exportData();
+        });
+        
+        document.getElementById('importDataBtn')?.addEventListener('click', () => {
+            this.importData();
+        });
     }
 
     // 设置技能等级调整功能
@@ -509,21 +641,109 @@ async function fetchData() {
         this.showNotification('文章已删除', 'success');
     }
 
+    // 删除生活记录
+    deleteLifePost(id) {
+        if (!confirm('确定要删除这条生活记录吗？')) return;
+        this.data.lifePosts = this.data.lifePosts.filter(post => post.id !== id);
+        this.saveData();
+        this.renderLifePosts();
+        this.showNotification('生活记录已删除', 'success');
+    }
+
+    // 删除计划
+    deletePlan(id, type) {
+        if (!confirm('确定要删除这个计划吗？')) return;
+        if (type === 'daily') {
+            this.data.dailyPlans = this.data.dailyPlans.filter(plan => plan.id !== id);
+        } else {
+            this.data.stagePlans = this.data.stagePlans.filter(plan => plan.id !== id);
+        }
+        this.saveData();
+        this.renderPlans();
+        this.showNotification('计划已删除', 'success');
+    }
+
+    // 删除书籍
+    deleteBook(id) {
+        if (!confirm('确定要删除这本书籍记录吗？')) return;
+        this.data.books = this.data.books.filter(book => book.id !== id);
+        this.saveData();
+        this.renderBooks();
+        this.showNotification('书籍记录已删除', 'success');
+    }
+
+    // 删除视频
+    deleteVideo(id) {
+        if (!confirm('确定要删除这个视频记录吗？')) return;
+        this.data.videos = this.data.videos.filter(video => video.id !== id);
+        this.saveData();
+        this.renderVideos();
+        this.showNotification('视频记录已删除', 'success');
+    }
+
     // 渲染生活记录
     renderLifePosts() {
         const grid = document.getElementById('lifeGrid');
         if (!grid) return;
 
-        grid.innerHTML = this.data.lifePosts.map(post => `
-            <div class="glass-card life-post">
-                ${post.image ? `<img src="${post.image}" alt="${post.title}">` : ''}
-                <h3>${post.title}</h3>
-                <p>${post.content}</p>
-                <div class="post-meta">
-                    <span><i class="fas fa-calendar"></i> ${post.date}</span>
+        grid.innerHTML = this.data.lifePosts.map(post => {
+            // 根据照片数量生成不同的布局
+            let imageLayout = '';
+            if (post.images.length === 1) {
+                imageLayout = `
+                    <div class="life-image-container single">
+                        <img src="${post.images[0]}" alt="${post.title}" class="life-image" onclick="app.showImageModal('${post.images[0]}', '${post.title}')">
+                    </div>
+                `;
+            } else if (post.images.length === 2) {
+                imageLayout = `
+                    <div class="life-image-container double">
+                        <img src="${post.images[0]}" alt="${post.title} - 图片1" class="life-image" onclick="app.showImageModal('${post.images[0]}', '${post.title}')">
+                        <img src="${post.images[1]}" alt="${post.title} - 图片2" class="life-image" onclick="app.showImageModal('${post.images[1]}', '${post.title}')">
+                    </div>
+                `;
+            } else if (post.images.length === 3) {
+                imageLayout = `
+                    <div class="life-image-container triple">
+                        <img src="${post.images[0]}" alt="${post.title} - 图片1" class="life-image" onclick="app.showImageModal('${post.images[0]}', '${post.title}')">
+                        <div class="life-image-stack">
+                            <img src="${post.images[1]}" alt="${post.title} - 图片2" class="life-image" onclick="app.showImageModal('${post.images[1]}', '${post.title}')">
+                            <img src="${post.images[2]}" alt="${post.title} - 图片3" class="life-image" onclick="app.showImageModal('${post.images[2]}', '${post.title}')">
+                        </div>
+                    </div>
+                `;
+            } else {
+                // 4张或更多照片
+                imageLayout = `
+                    <div class="life-image-container multiple">
+                        <img src="${post.images[0]}" alt="${post.title} - 图片1" class="life-image main" onclick="app.showImageModal('${post.images[0]}', '${post.title}')">
+                        <div class="life-image-grid">
+                            ${post.images.slice(1, 4).map((image, index) => `
+                                <img src="${image}" alt="${post.title} - 图片${index + 2}" class="life-image" onclick="app.showImageModal('${image}', '${post.title}')">
+                            `).join('')}
+                            ${post.images.length > 4 ? `<div class="more-images">+${post.images.length - 4}</div>` : ''}
+                        </div>
+                    </div>
+                `;
+            }
+
+            return `
+                <div class="glass-card life-post">
+                    <button class="delete-btn" onclick="event.stopPropagation(); app.deleteLifePost(${post.id})" title="删除记录"><i class="fas fa-trash"></i></button>
+                    <div class="life-post-images">
+                        ${imageLayout}
+                    </div>
+                    <div class="life-post-content">
+                        <h3>${post.title}</h3>
+                        ${post.content ? `<p>${post.content}</p>` : ''}
+                        <div class="post-meta">
+                            <span><i class="fas fa-calendar"></i> ${post.date}</span>
+                            <span><i class="fas fa-images"></i> ${post.images.length} 张照片</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        `).join('');
+            `;
+        }).join('');
     }
 
     // 渲染计划
@@ -538,6 +758,7 @@ async function fetchData() {
 
         grid.innerHTML = this.data.dailyPlans.map(plan => `
             <div class="glass-card plan-item ${plan.completed ? 'completed' : ''}" onclick="app.togglePlanComplete(${plan.id}, 'daily')">
+                <button class="delete-btn" onclick="event.stopPropagation(); app.deletePlan(${plan.id}, 'daily')" title="删除计划"><i class="fas fa-trash"></i></button>
                 <h4>${plan.title}</h4>
                 <p>${plan.description}</p>
                 <div class="plan-meta">
@@ -554,6 +775,7 @@ async function fetchData() {
 
         grid.innerHTML = this.data.stagePlans.map(plan => `
             <div class="glass-card plan-item ${plan.completed ? 'completed' : ''}" onclick="app.togglePlanComplete(${plan.id}, 'stage')">
+                <button class="delete-btn" onclick="event.stopPropagation(); app.deletePlan(${plan.id}, 'stage')" title="删除计划"><i class="fas fa-trash"></i></button>
                 <h4>${plan.title}</h4>
                 <p>${plan.description}</p>
                 <div class="plan-meta">
@@ -576,6 +798,7 @@ async function fetchData() {
 
         grid.innerHTML = this.data.books.map(book => `
             <div class="glass-card book-item">
+                <button class="delete-btn" onclick="app.deleteBook(${book.id})" title="删除书籍"><i class="fas fa-trash"></i></button>
                 <h4>${book.title}</h4>
                 <p><strong>作者:</strong> ${book.author}</p>
                 <span class="book-status ${book.status}">${this.getBookStatusText(book.status)}</span>
@@ -590,6 +813,7 @@ async function fetchData() {
 
         grid.innerHTML = this.data.videos.map(video => `
             <div class="glass-card video-item">
+                <button class="delete-btn" onclick="app.deleteVideo(${video.id})" title="删除视频"><i class="fas fa-trash"></i></button>
                 <h4>${video.title}</h4>
                 <span class="video-platform">${this.getPlatformText(video.platform)}</span>
                 <p><a href="${video.url}" target="_blank">观看视频</a></p>
@@ -674,21 +898,59 @@ async function fetchData() {
     addLifePost() {
         const title = document.getElementById('lifeTitle').value;
         const content = document.getElementById('lifeContent').value;
-        const image = document.getElementById('lifeImage').value;
+        const imageFiles = document.getElementById('lifeImages').files;
 
-        const post = {
-            id: Date.now(),
-            title,
-            content,
-            image,
-            date: new Date().toISOString().split('T')[0]
-        };
+        if (!title || imageFiles.length === 0) {
+            this.showNotification('请填写标题并选择至少一张照片！', 'error');
+            return;
+        }
 
-        this.data.lifePosts.unshift(post);
-        this.saveData();
-        this.renderLifePosts();
-        this.hideModal('lifeModal');
-        this.showNotification('生活记录添加成功！', 'success');
+        // 处理多张照片
+        const imagePromises = Array.from(imageFiles).map(file => {
+            return new Promise((resolve, reject) => {
+                // 检查文件类型
+                if (!file.type.startsWith('image/')) {
+                    reject(new Error('请选择图片文件'));
+                    return;
+                }
+                
+                // 检查文件大小（限制为5MB）
+                if (file.size > 5 * 1024 * 1024) {
+                    reject(new Error('图片文件大小不能超过5MB'));
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = (e) => resolve(e.target.result);
+                reader.onerror = () => reject(new Error('文件读取失败'));
+                reader.readAsDataURL(file);
+            });
+        });
+
+        Promise.all(imagePromises)
+            .then(images => {
+                const post = {
+                    id: Date.now(),
+                    title,
+                    content,
+                    images,
+                    date: new Date().toISOString().split('T')[0]
+                };
+
+                this.data.lifePosts.unshift(post);
+                this.saveData();
+                this.renderLifePosts();
+                this.hideModal('lifeModal');
+                this.showNotification('照片集添加成功！', 'success');
+                
+                // 清空表单
+                document.getElementById('lifeForm').reset();
+                document.getElementById('imagePreview').innerHTML = '';
+            })
+            .catch(error => {
+                console.error('照片上传错误:', error);
+                this.showNotification(error.message || '照片上传失败，请重试！', 'error');
+            });
     }
 
     // 添加计划
@@ -863,6 +1125,118 @@ async function fetchData() {
             other: '其他'
         };
         return texts[platform] || platform;
+    }
+
+    // 处理图片预览
+    handleImagePreview(event) {
+        const files = event.target.files;
+        const preview = document.getElementById('imagePreview');
+        preview.innerHTML = '';
+
+        if (files.length > 0) {
+            Array.from(files).forEach((file, index) => {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.className = 'preview-image';
+                        img.alt = `预览图片 ${index + 1}`;
+                        preview.appendChild(img);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    }
+
+    // 显示图片模态框
+    showImageModal(imageSrc, title) {
+        const modal = document.createElement('div');
+        modal.className = 'modal image-modal';
+        modal.style.display = 'block';
+        modal.innerHTML = `
+            <div class="image-modal-content">
+                <div class="image-modal-header">
+                    <h3>${title}</h3>
+                    <span class="close">&times;</span>
+                </div>
+                <div class="image-modal-body">
+                    <img src="${imageSrc}" alt="${title}" class="modal-image">
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        // 点击关闭
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal || e.target.classList.contains('close')) {
+                document.body.removeChild(modal);
+            }
+        });
+    }
+
+    // 清空所有数据
+    clearAllData() {
+        if (confirm('确定要清空所有数据吗？此操作不可恢复！')) {
+            this.data = {
+                blogPosts: [],
+                lifePosts: [],
+                dailyPlans: [],
+                stagePlans: [],
+                books: [],
+                videos: []
+            };
+            localStorage.removeItem('earthOnlineData');
+            localStorage.removeItem('skillLevels');
+            this.updateDataStats();
+            this.renderCurrentSection();
+            this.showNotification('所有数据已清空！', 'success');
+        }
+    }
+    
+    // 导出数据
+    exportData() {
+        const dataStr = JSON.stringify(this.data, null, 2);
+        const dataBlob = new Blob([dataStr], { type: 'application/json' });
+        const url = URL.createObjectURL(dataBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `earthOnline_data_${new Date().toISOString().split('T')[0]}.json`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        this.showNotification('数据导出成功！', 'success');
+    }
+    
+    // 导入数据
+    importData() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.json';
+        input.onchange = (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    try {
+                        const importedData = JSON.parse(event.target.result);
+                        this.data = { ...this.data, ...importedData };
+                        this.saveData();
+                        this.updateDataStats();
+                        this.renderCurrentSection();
+                        this.showNotification('数据导入成功！', 'success');
+                    } catch (error) {
+                        console.error('导入数据失败:', error);
+                        this.showNotification('导入数据失败，请检查文件格式！', 'error');
+                    }
+                };
+                reader.readAsText(file);
+            }
+        };
+        input.click();
     }
 }
 
